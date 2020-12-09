@@ -1,0 +1,12 @@
+.root{
+    -fx-background-color: #ee81ad;
+
+}
+.label{
+    -fx-background-color: #945add;
+    -fx-font-family: "Fira Code";
+    -fx-font-size: 25px;
+}
+#special-label{
+    -fx-font-size: 40px;
+}
