@@ -1,9 +1,13 @@
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -28,11 +32,14 @@ public class MyApp extends Application { //this is the actual application class 
         stage.setY(250); //y position of window*/
 
         Stage stage2 = new Stage(); // thats how we create a new stage (window)
-        stage2.setWidth(700);
-        stage2.setHeight(400);
+        stage2.setWidth(500);
+        stage2.setHeight(500);
         stage2.setX(350);
         stage2.setY(100);
         stage2.setTitle("Second Window");
+        BorderPane real_root =  new BorderPane();
+
+
 
 
 
@@ -56,8 +63,10 @@ public class MyApp extends Application { //this is the actual application class 
         //Scenes
 
         VBox root = new VBox(); // layout manager; controls how layout looks; a stage can have multiple layout managers for different parts of the window
+        root.setAlignment(Pos.BOTTOM_RIGHT);
+        real_root.setRight(root);
 
-        Scene scene1 = new Scene(root); // creates new scene
+        Scene scene1 = new Scene(real_root); // creates new scene
         stage2.setScene(scene1); // adds scene to stage
         scene1.setCursor(Cursor.CLOSED_HAND); //changes how cursor looks
         scene1.getStylesheets().add("stylesheets/styles.css");
@@ -71,15 +80,15 @@ public class MyApp extends Application { //this is the actual application class 
         //Image image = new Image("https://www.france-pub.com/images/city-paris-600.jpg"); // also possible to create new image object and then plug it into imageview instead of link
         //parent.getChildren().add(image1); // adds child node to parent
 
-        Label label1 = new Label("This is a text label", image1); // creates new label; is child to "parent"; adds an image to that label
-        label1.setTextFill(Color.web("#918273"));
-        label1.setFont(new Font("Cambria", 45));
-        label1.setRotate(34);
+        //Label label1 = new Label("This is a text label", image1); // creates new label; is child to "parent"; adds an image to that label
+        //label1.setTextFill(Color.web("#918273"));
+        //label1.setFont(new Font("Cambria", 45));
+        //label1.setRotate(34);
 
         Label label2 = new Label("This is a second label");
         label2.setId("special-label");
 
-        root.getChildren().addAll(label1,label2); // adds child to parent (use .addAll(<controls>) if you want to add multiple
+        root.getChildren().addAll(/*label1,*/label2); // adds child to parent (use .addAll(<controls>) if you want to add multiple
 
 
 
@@ -109,7 +118,7 @@ public class MyApp extends Application { //this is the actual application class 
         button.setMinSize(10, 10);
         button.setPrefSize(100, 100);
         button.setOnAction(e -> {
-            label1.setText("Test");
+            //label1.setText("Test");
         });
         root.getChildren().addAll(button);
 
@@ -118,6 +127,61 @@ public class MyApp extends Application { //this is the actual application class 
         //Mnemonic
 
         button.setMnemonicParsing(true); //basically a shortcut (alt + underlined character)
+
+
+
+        //Menu Button
+
+        MenuItem item1 = new MenuItem("Taco");
+        MenuItem item2 = new MenuItem("Cheese");
+        MenuItem item3 = new MenuItem("Bread");
+        MenuItem item4 = new MenuItem("Nacho");
+
+        MenuButton menuButton = new MenuButton("Food",null, item1, item2, item3, item4);
+
+        Label choose = new Label("Choose Food");
+        item1.setOnAction( e -> {
+            choose.setText("You chose " + item1.getText());
+        });
+        root.getChildren().addAll(menuButton,choose);
+
+
+
+        //Toggle and radio buttons
+        HBox horizon = new HBox();
+        horizon.setSpacing(20);
+        horizon.setAlignment(Pos.BOTTOM_RIGHT);
+        horizon.setPadding(new Insets(10,10,10,10));
+        real_root.setLeft(horizon);
+
+
+
+        ToggleButton colour1 = new ToggleButton("Blue");
+        ToggleButton colour2 = new ToggleButton("Pink");
+        ToggleButton colour3 = new ToggleButton("Gree");
+
+        ToggleGroup group = new ToggleGroup();
+        colour1.setToggleGroup(group);
+        colour2.setToggleGroup(group);
+        colour3.setToggleGroup(group);
+
+        RadioButton r1 = new RadioButton("Brown");
+        r1.setToggleGroup(group);
+
+        horizon.setMargin(colour1, new Insets(50, 100, 50, 50));
+
+        horizon.getChildren().addAll(colour1, colour2, colour3, r1);
+
+        Button button_center = new Button("Center");
+        Button button_top = new Button("Top");
+        Button button_bottom = new Button("Bottom");
+        real_root.setCenter(button_center);
+        real_root.setBottom(button_bottom);
+        real_root.setTop(button_top);
+        BorderPane.setAlignment(button_bottom, Pos.CENTER);
+        BorderPane.setAlignment(button_top, Pos.CENTER);
+
+
 
 
 
